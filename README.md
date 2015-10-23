@@ -6,6 +6,8 @@ create an awesome Table from raw JSON , which this Awesomeness has  sorting abil
   - create Pagination
   - click an header to SortBy that column(or sortby multiple column)
   - create select box for changing table page size
+  - 
+  
 # how to use
 > you can let me to create all html elements for you  , but its better to create your container  elements and put them where you want and style them like a charm , so  
 create your html like this :
@@ -96,6 +98,7 @@ help me to make it even better
 
 ### Contributors
 * [farshadjahanmanesh] 
+
 > This is a open-source project. Fork the project, complete the code and send pull request.
 
 License
