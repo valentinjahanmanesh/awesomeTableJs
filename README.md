@@ -24,7 +24,7 @@ create your html like this :
 <!--container for awesomeTable -->
  <div class="awesomeTableContiner"> </div>
 ```
-its done , then put this before </body> tag , like this :
+its done , then put this before End tag for body , like this :
 ```sh
 <!-- including lib script  -->
 <script src="awesomeTableJs.js"></script>
