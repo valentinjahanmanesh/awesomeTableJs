@@ -28,36 +28,28 @@ its done , then put this before End tag for body , like this :
 ```sh
 <!-- including lib script  -->
 <script src="awesomeTableJs.js"></script>
-
 <script>
 //initial table
 var aweTbl = new awesomeTableJs({
 // a json file or an websrvice that return JSON as its results
 // url : 'http://yourUrl/webserviceOrPageOrFileThatReturnJSON' 
-
 url:'example.json',
-
 //how many records should display per table page 
   pageSize:10,
-  
 // table container div 
   tableWrapper:".awesomeTableContiner",
-  
 // pagination container div
   paginationWrapper:".paginationContainer",
-  
 // searchbox container div
   searchboxWrapper:".searchContainer",
-  
 // pagesize selectbox div
   pageSizeWrapper:".pageSizeContainer"
 });
-
 // then call Awesomeness and wait for it ...
 aweTbl.createTable();
-
 </script>
 ```
+
 here is an expected JSON (your json should looklike this):
 ```sh
 [ 
