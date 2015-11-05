@@ -146,6 +146,8 @@ table tr:hover td {
 }
 </style>
 <body>
+  <!-- Add another input to prevent IE or goole Chrome from submiting form, after Enter Key pressed -->
+  <input type="text" style="display:none"/>
   <br/>
   <br/>
   <div class="container">
@@ -193,12 +195,12 @@ table tr:hover td {
 
   </div>
 
-<script src="awesomeTableJs.min.js"></script>
+<script src="../awesomeTableJs.js"></script>
 
 <script >
 var aweTbl = new awesomeTableJs({
   url:'http://awesometablejs.aorb.ir/GetSampleJson.ashx',
-  pageSize:10,
+  pageSize:15,
   tableWrapper:".awesomeTableContiner",
   paginationWrapper:".paginationContainer",
   searchboxWrapper:".searchContainer",

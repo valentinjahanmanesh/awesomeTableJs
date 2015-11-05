@@ -6,8 +6,8 @@ create an awesome Table from raw JSON , which this Awesomeness has  sorting abil
   - create Pagination
   - click an header to SortBy that column(or sortby multiple column)
   - create select box for changing table page size
-  - a beautiful example that you can use 
-  
+  - a beautiful example that you can use
+
   ![alt tag](http://farshadjahanmanesh.ir/WATCHME.png "Screenshot")
 
 # Online Demo [Here]
@@ -20,7 +20,7 @@ create your html like this :
 ```sh
 <!-- container for SearchBox  -->
 <div class="searchContainer"> </div>
-<!--container for page size selectbox --> 
+<!--container for page size selectbox -->
 <div class="pageSizeContainer"></div>
 <!--container for pagination -->
 <div class="paginationContainer "></div>
@@ -35,11 +35,11 @@ its done , then put this before End tag for body , like this :
 //initial table
 var aweTbl = new awesomeTableJs({
 // a json file or an websrvice that return JSON as its results
-// url : 'http://yourUrl/webserviceOrPageOrFileThatReturnJSON' 
+// url : 'http://yourUrl/webserviceOrPageOrFileThatReturnJSON'
 url:'example.json',
-//how many records should display per table page 
+//how many records should display per table page
   pageSize:10,
-// table container div 
+// table container div
   tableWrapper:".awesomeTableContiner",
 // pagination container div
   paginationWrapper:".paginationContainer",
@@ -55,10 +55,10 @@ aweTbl.createTable();
 
 here is an expected JSON (your json should looklike this):
 ```sh
-[ 
+[
     ...
     ...
-    { 
+    {
       "index": 0,
       "isActive": false,
       "picture": "http://placehold.it/32x32",
@@ -84,7 +84,7 @@ here is an expected JSON (your json should looklike this):
 ]
 ```
 ### Version
-0.1.0
+0.1.1
 
 ### Tech
 
@@ -95,7 +95,7 @@ Want to contribute? Great!
 help me to make it even better
 
 ### Contributors
-* [farshadjahanmanesh] 
+* [farshadjahanmanesh]
 
 > This is a open-source project. Fork the project, complete the code and send pull request.
 
@@ -103,17 +103,17 @@ License
 ----
 > Copyright (C) 2015 farshad jahanmanesh (farshadjahanmanesh@gmail.com)
 
->Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated 
-documentation files (the "Software"), to deal in the Software without restriction, including without limitation 
-the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
 and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all copies or substantial portions 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions
 of the Software.
 
->THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED 
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
-THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF 
-CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS 
+>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 IN THE SOFTWARE.
 
 [farshadjahanmanesh]: <https://github.com/farshadjahanmanesh>

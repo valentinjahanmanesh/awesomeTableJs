@@ -7,7 +7,7 @@
     root.awesomeTableJs = factory(root.awesomeTableJs);
   }
 }(this, function() {
-  var VERSION = "0.1.0";
+  var VERSION = "0.1.1";
   //functions that contain 'create' in their name , are which export to outside
   //and functiins tha contains 'make' are internal an private
   function AwesomeTableJs(options) {
@@ -341,7 +341,7 @@
     input.type = "text";
     input.className = "aweTbl-searchBox-input";
     input.placeholder = "write + ENTER";
-    input.addEventListener("change", this.filter.bind(this, input), false);
+    input.addEventListener("keydown", this.filter.bind(this, input), false);
     divWrapper.appendChild(input);
     this.searchboxWrapper.appendChild(divWrapper);
   }
@@ -418,7 +418,17 @@
       }
       this.tableElement.appendChild(tbdy);
     } else {
-      console.log("string");
+      var tr = document.createElement("tr");
+      var td = document.createElement("td");
+      td.colSpan = 1000;
+      td.innerHTML = "Nothing found :(";
+      tr.appendChild(td);
+      tbdy.appendChild(tr);
+      var prevTbody = this.tableElement.querySelector("tbody");
+      if (prevTbody) {
+        this.tableElement.removeChild(prevTbody);
+      }
+      this.tableElement.appendChild(tbdy);
     }
   }
 
