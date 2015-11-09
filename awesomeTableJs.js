@@ -7,12 +7,12 @@
     root.awesomeTableJs = factory(root.awesomeTableJs);
   }
 }(this, function() {
-  var VERSION = "0.1.1";
+  var VERSION = "0.1.2";
   //functions that contain 'create' in their name , are which export to outside
   //and functiins tha contains 'make' are internal an private
   function AwesomeTableJs(options) {
     //check if a parameter pass to function
-    this.globalOptions = options || {
+    this.globalOptions =  {
       url: "",
       data: "",
       pageSize: 15,
@@ -20,8 +20,17 @@
       tableWrapper: "",
       paginationWrapper: "",
       searchboxWrapper: "",
-      pageSizeWrapper: ""
+      pageSizeWrapper: "",
+      buildSearch:true,
+      buildPagination:true,
+      buildPageSize:true,
+      buildSorting:true
     };
+    for(var key in this.globalOptions){
+      if(options.hasOwnProperty(key)){
+        this.globalOptions[key]=options[key];
+      }
+    }
     if (this.globalOptions.tableWrapper) {
       this.tableWrapper = document.querySelector(this.globalOptions.tableWrapper)
     };
@@ -85,9 +94,14 @@
     if (!this.globalOptions.url) {
       throw "please pass a url ,becuase i want to create table from its json result";
     }
+
     var self = this;
     var httpRequest = new XMLHttpRequest();
     console.log(self, " self");
+    var loadingDiv = document.createElement('div');
+    loadingDiv.innerHTML="   Loading ...  ";
+    loadingDiv.className="aweTbl-loading";
+    this.tableWrapper.appendChild(loadingDiv);
 
     httpRequest.addEventListener("load", getXhrResponse.bind(self,
       httpRequest));
@@ -144,7 +158,6 @@
   }
   AwesomeTableJs.prototype.sort = function(headerElement) {
     var key = headerElement.getAttribute('data-sortkey');
-
     key = key || this.jsonKeys[0];
     var direction = headerElement.getAttribute('data-sortDirection');
     direction = direction || "asc";
@@ -155,6 +168,11 @@
       sessionStorage.awesomeTabledata = JSON.stringify(result);
       changeTableBody.call(this, result);
       //makePagination.call(this, result.length);
+      
+      //remove asc from other
+      for(var i=0, len=this.jsonKeys.length;i<len;i++){
+        headerElement.parentNode.parentNode.childNodes[i].childNodes[0].setAttribute('data-sortDirection',  "asc" );
+      }
       headerElement.setAttribute('data-sortDirection', direction == "asc" ?
         "desc" : "asc");
 
@@ -347,7 +365,12 @@
   }
   //internalFunction that create a table from json result
   function getXhrResponse(xhr) {
+
     if (xhr.status === 200) {
+      var loadingDiv=document.querySelector('.aweTbl-loading');
+      if(loadingDiv){
+        this.tableWrapper.removeChild(loadingDiv);
+      }
       var result = JSON.parse(xhr.responseText);
       //console.log("these are what i had recievd from that url \n", result);
       if (result.Length == 0) {
@@ -356,9 +379,15 @@
       //SaveResult in webStorage
       sessionStorage.awesomeTabledata = xhr.responseText;
       makeTable.call(this, result);
-      makePagination.call(this, result.length, 1);
-      makeSearchBox.call(this);
-      makePageSize.call(this);
+      //check global options for Pagination user privilege
+      if(this.globalOptions.buildPagination){
+      makePagination.call(this, result.length, 1);}
+      //check global options for search user privilege
+      if(this.globalOptions.buildSearch){
+      makeSearchBox.call(this);}
+      //check global options for pageSize Selectbox user privilege
+      if(this.globalOptions.buildPageSize){
+      makePageSize.call(this);}
     } else {
       throw "i cant use url response as json,check url and make sure that it will respond as json";
     }
@@ -448,7 +477,10 @@
         a.href = "javascript:void(0);";
         a.setAttribute('data-sortKey', key);
         a.setAttribute('data-sortDirection', "asc");
+        //check global options for sorting user privilege
+        if(this.globalOptions.buildSorting){
         a.addEventListener("click", this.sort.bind(this, a));
+        }
         th.appendChild(a);
         this.jsonKeys.push(key);
         header.appendChild(th);
