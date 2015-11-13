@@ -11,7 +11,7 @@
 
   //Acceppted data :
   //var array=[{"Total":"34","Version":"1.0.4","Office":"New York"},{"Total":"67","Version":"1.1.0","Office":"Paris"}];
-  //Or Use a url that return a Standard Json
+  //Or Use an url that return a Standard Json
   //functions that contain 'create' in their name , are which export to outside
   //and functiins tha contains 'make' are internal an private
   function AwesomeTableJs(options) {
@@ -114,7 +114,7 @@
       httpRequest.open("GET", this.globalOptions.url);
       httpRequest.send();
     } else {
-      throw "please pass a url ,becuase i want to create table from its json result,or data like an array";
+      throw "please pass an url ,becuase i want to create table from its json result,or data like an array";
     }
 
 
