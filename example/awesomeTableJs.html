@@ -28,12 +28,6 @@ table {
     height: 40px;
     width: 100%;
 }
-.aweTbl-loading{
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
-  font-size: 15px;
-}
 table a:link {
 	color: white;
 	font-weight: bold;
@@ -97,15 +91,12 @@ table thead{
   border-bottom: solid 3px #CF000F;
 }
 table td {
-	padding:18px 10px;
+	padding:18px 10;
 	border-top: 1px solid #ffffff;
 	border-bottom:1px solid #e0e0e0;
 	border-left: 1px solid #e0e0e0;
 
 	background: white;
-}
-table td a{
-  color: #F62459 !important;
 }
 table tr.even td {
 	background: #F2F1EF;
@@ -207,16 +198,13 @@ table tr:hover td {
 <script src="../awesomeTableJs.js"></script>
 
 <script >
-var myarray=[{"Total":"34","Version":"1.0.4","Office":"New York"},{"Total":"67","Version":"1.1.0","Office":"Paris"}];
 var aweTbl = new awesomeTableJs({
   url:'http://awesometablejs.aorb.ir/GetSampleJson.ashx',
-  data: "",
   pageSize:15,
   tableWrapper:".awesomeTableContiner",
   paginationWrapper:".paginationContainer",
   searchboxWrapper:".searchContainer",
-  pageSizeWrapper:".pageSizeContainer",
-  columnsTypes:{picture:"image",email:"link"}
+  pageSizeWrapper:".pageSizeContainer"
 });
 aweTbl.createTable();
 </script>
