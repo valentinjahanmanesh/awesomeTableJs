@@ -7,20 +7,16 @@
     root.awesomeTableJs = factory(root.awesomeTableJs);
   }
 }(this, function() {
-<<<<<<< HEAD
   var VERSION = "0.1.2";
 
   //Acceppted data :
   //var array=[{"Total":"34","Version":"1.0.4","Office":"New York"},{"Total":"67","Version":"1.1.0","Office":"Paris"}];
   //Or Use a url that return a Standard Json
-=======
-  var VERSION = "0.1.1";
->>>>>>> parent of c623886... a lot of cool stuff
   //functions that contain 'create' in their name , are which export to outside
   //and functiins tha contains 'make' are internal an private
   function AwesomeTableJs(options) {
     //check if a parameter pass to function
-    this.globalOptions = options || {
+    this.globalOptions = {
       url: "",
       data: "",
       pageSize: 15,
@@ -28,15 +24,22 @@
       tableWrapper: "",
       paginationWrapper: "",
       searchboxWrapper: "",
-      pageSizeWrapper: ""
+      pageSizeWrapper: "",
+      buildSearch: true,
+      buildPagination: true,
+      buildPageSize: true,
+      buildSorting: true,
+      columnsTypes: ""
     };
+    for (var key in this.globalOptions) {
+      if (options.hasOwnProperty(key)) {
+        this.globalOptions[key] = options[key];
+      }
+    }
     if (this.globalOptions.tableWrapper) {
       this.tableWrapper = document.querySelector(this.globalOptions.tableWrapper)
     };
 
-    // if (this.globalOptions.wrapper) {
-    //   this.wrapperElement = document.querySelector(this.globalOptions.wrapper)
-    // };
     if (this.globalOptions.searchboxWrapper) {
       this.searchboxWrapper = document.querySelector(this.globalOptions.searchboxWrapper)
     };
@@ -79,18 +82,12 @@
       this.searchboxWrapper = divWrapper;
       document.body.appendChild(divWrapper);
     }
-    // if (!this.wrapperElement) {
-    //   var wrapper = document.createElement("div");
-    //   wrapper.className = "aweTbl-wrapper";
-    //   document.body.appendChild(wrapper);
-    //   this.wrapperElement = wrapper;
-    // }
+
     this.jsonKeys = [];
   }
   //Get A WebService Address for Using Its JSon Result
   //options = url,data
   AwesomeTableJs.prototype.createTable = function() {
-<<<<<<< HEAD
 
 
     if (this.globalOptions.data) {
@@ -118,27 +115,9 @@
       httpRequest.send();
     } else {
       throw "please pass a url ,becuase i want to create table from its json result,or data like an array";
-=======
-    if (!this.globalOptions.url) {
-      throw "please pass a url ,becuase i want to create table from its json result";
->>>>>>> parent of c623886... a lot of cool stuff
     }
-    var self = this;
-    var httpRequest = new XMLHttpRequest();
-    console.log(self, " self");
 
-    httpRequest.addEventListener("load", getXhrResponse.bind(self,
-      httpRequest));
-    httpRequest.addEventListener("error", function() {
-      throw "requesting that url come with an error \n" + this.responseText;
-    });
 
-    httpRequest.addEventListener("abort", function() {
-      throw "request canceled by you";
-    });
-
-    httpRequest.open("GET", this.globalOptions.url);
-    httpRequest.send();
   }
   AwesomeTableJs.prototype.paging = function(inCurrentPage) {
     if (inCurrentPage) {
@@ -182,7 +161,6 @@
   }
   AwesomeTableJs.prototype.sort = function(headerElement) {
     var key = headerElement.getAttribute('data-sortkey');
-
     key = key || this.jsonKeys[0];
     var direction = headerElement.getAttribute('data-sortDirection');
     direction = direction || "asc";
@@ -193,6 +171,12 @@
       sessionStorage.awesomeTabledata = JSON.stringify(result);
       changeTableBody.call(this, result);
       //makePagination.call(this, result.length);
+
+      //remove asc from other
+      for (var i = 0, len = this.jsonKeys.length; i < len; i++) {
+        headerElement.parentNode.parentNode.childNodes[i].childNodes[0].setAttribute(
+          'data-sortDirection', "asc");
+      }
       headerElement.setAttribute('data-sortDirection', direction == "asc" ?
         "desc" : "asc");
 
@@ -206,16 +190,21 @@
       case "object":
         {
           if (Array.isArray(data)) {
-
+            //check for header
+            if (data[0]) {
+              sessionStorage.awesomeTabledata = JSON.stringify(data);
+              makeTable.call(this, data);
+              makeOtherstuff.call(this, data.length);
+            }
           } else {
-
+            throw "pass an array with this format : [{'Name':'ronaldo',...},{'Name':'sarah'}]";
           }
           break;
         }
       case "string":
         {
           //check for Json
-          if (/^[\],:{}\s]*$/.test(text.replace(/\\["\\\/bfnrtu]/g, '@').replace(
+          if (/^[\],:{}\s]*$/.test(data.replace(/\\["\\\/bfnrtu]/g, '@').replace(
               /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
               ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
@@ -385,7 +374,12 @@
   }
   //internalFunction that create a table from json result
   function getXhrResponse(xhr) {
+
     if (xhr.status === 200) {
+      var loadingDiv = document.querySelector('.aweTbl-loading');
+      if (loadingDiv) {
+        this.tableWrapper.removeChild(loadingDiv);
+      }
       var result = JSON.parse(xhr.responseText);
       //console.log("these are what i had recievd from that url \n", result);
       if (result.Length == 0) {
@@ -394,11 +388,24 @@
       //SaveResult in webStorage
       sessionStorage.awesomeTabledata = xhr.responseText;
       makeTable.call(this, result);
-      makePagination.call(this, result.length, 1);
-      makeSearchBox.call(this);
-      makePageSize.call(this);
+      makeOtherstuff.call(this, result.length);
     } else {
       throw "i cant use url response as json,check url and make sure that it will respond as json";
+    }
+  }
+
+  function makeOtherstuff(resultLength) {
+    //check global options for Pagination user privilege
+    if (this.globalOptions.buildPagination) {
+      makePagination.call(this, resultLength, 1);
+    }
+    //check global options for search user privilege
+    if (this.globalOptions.buildSearch) {
+      makeSearchBox.call(this);
+    }
+    //check global options for pageSize Selectbox user privilege
+    if (this.globalOptions.buildPageSize) {
+      makePageSize.call(this);
     }
   }
   AwesomeTableJs.prototype.changePageSize = function(pageSize) {
@@ -441,14 +448,61 @@
       var keyLen = this.jsonKeys.length;
       var take = this.globalOptions.pageSize < trlen ? this.globalOptions.pageSize :
         trlen;
-      for (var i = 0; i < take; i++) {
-        var tr = document.createElement("tr");
-        for (j = 0; j < keyLen; j++) {
-          var td = document.createElement("td");
-          td.innerHTML = result[i][this.jsonKeys[j]];
-          tr.appendChild(td);
+      if (this.globalOptions.columnsTypes) {
+        for (var i = 0; i < take; i++) {
+          var tr = document.createElement("tr");
+          for (j = 0; j < keyLen; j++) {
+            var td = document.createElement("td");
+            if (Object.keys(this.globalOptions.columnsTypes).indexOf(this.jsonKeys[
+                j]) > -1) {
+              switch (this.globalOptions.columnsTypes[this.jsonKeys[j]]) {
+                case "image":
+                  {
+                    var img = document.createElement('img');
+                    img.src = result[i][this.jsonKeys[j]];
+                    img.alt = result[i][this.jsonKeys[j]];
+                    img.className = "aweTbl-img-".concat(this.jsonKeys[j]);
+                    td.appendChild(img);
+                    break;
+                  }
+                case "link":
+                  {
+                    var anchor = document.createElement('a');
+                    anchor.href = result[i][this.jsonKeys[j]];
+                    anchor.target = "_blank";
+                    anchor.className = "aweTbl-link-".concat(this.jsonKeys[
+                      j]);
+
+                    anchor.innerHTML = result[i][this.jsonKeys[j]];
+                    td.appendChild(anchor);
+                    break;
+                  }
+                default:
+                  {
+                    td.className = "aweTbl-text-".concat(this.jsonKeys[j]);
+                    td.innerHTML = result[i][this.jsonKeys[j]];
+                  }
+              }
+            } else {
+              td.className = "aweTbl-text-".concat(this.jsonKeys[j]);
+              td.innerHTML = result[i][this.jsonKeys[j]];
+            }
+
+            tr.appendChild(td);
+          }
+          tbdy.appendChild(tr);
         }
-        tbdy.appendChild(tr);
+      } else {
+        for (var i = 0; i < take; i++) {
+          var tr = document.createElement("tr");
+          for (j = 0; j < keyLen; j++) {
+            var td = document.createElement("td");
+            td.className = "aweTbl-text-".concat(this.jsonKeys[j]);
+            td.innerHTML = result[i][this.jsonKeys[j]];
+            tr.appendChild(td);
+          }
+          tbdy.appendChild(tr);
+        }
       }
       var prevTbody = this.tableElement.querySelector("tbody");
       if (prevTbody) {
@@ -486,7 +540,10 @@
         a.href = "javascript:void(0);";
         a.setAttribute('data-sortKey', key);
         a.setAttribute('data-sortDirection', "asc");
-        a.addEventListener("click", this.sort.bind(this, a));
+        //check global options for sorting user privilege
+        if (this.globalOptions.buildSorting) {
+          a.addEventListener("click", this.sort.bind(this, a));
+        }
         th.appendChild(a);
         this.jsonKeys.push(key);
         header.appendChild(th);
@@ -495,15 +552,62 @@
       var keyLen = this.jsonKeys.length;
       var take = this.globalOptions.pageSize < trlen ? this.globalOptions.pageSize :
         trlen;
-      for (var i = 0; i < take; i++) {
-        var tr = document.createElement("tr");
-        for (j = 0; j < keyLen; j++) {
-          var td = document.createElement("td");
-          td.innerHTML = result[i][this.jsonKeys[j]];
-          tr.appendChild(td);
+      if (this.globalOptions.columnsTypes) {
+        for (var i = 0; i < take; i++) {
+          var tr = document.createElement("tr");
+          for (j = 0; j < keyLen; j++) {
+            var td = document.createElement("td");
+            if (Object.keys(this.globalOptions.columnsTypes).indexOf(this.jsonKeys[
+                j]) > -1) {
+              switch (this.globalOptions.columnsTypes[this.jsonKeys[j]]) {
+                case "image":
+                  {
+                    var img = document.createElement('img');
+                    img.src = result[i][this.jsonKeys[j]];
+                    img.alt = result[i][this.jsonKeys[j]];
+                    img.className = "aweTbl-img-".concat(this.jsonKeys[j]);
+                    td.appendChild(img);
+                    break;
+                  }
+                case "link":
+                  {
+                    var anchor = document.createElement('a');
+                    anchor.href = result[i][this.jsonKeys[j]];
+                    anchor.target = "_blank";
+                    anchor.className = "aweTbl-link-".concat(this.jsonKeys[
+                      j]);
+                    anchor.innerHTML = result[i][this.jsonKeys[j]];
+                    td.appendChild(anchor);
+                    break;
+                  }
+                default:
+                  {
+                    td.className = "aweTbl-text-".concat(this.jsonKeys[j]);
+                    td.innerHTML = result[i][this.jsonKeys[j]];
+                  }
+              }
+            } else {
+              td.className = "aweTbl-text-".concat(this.jsonKeys[j]);
+              td.innerHTML = result[i][this.jsonKeys[j]];
+            }
+
+            tr.appendChild(td);
+          }
+          tbdy.appendChild(tr);
         }
-        tbdy.appendChild(tr);
+      } else {
+        for (var i = 0; i < take; i++) {
+          var tr = document.createElement("tr");
+          for (j = 0; j < keyLen; j++) {
+            var td = document.createElement("td");
+            td.className = "aweTbl-text-".concat(this.jsonKeys[j]);
+            td.innerHTML = result[i][this.jsonKeys[j]];
+            tr.appendChild(td);
+          }
+          tbdy.appendChild(tr);
+        }
       }
+
       var prevTbody = this.tableElement.querySelector("tbody");
       if (prevTbody) {
         this.tableElement.removeChild(prevTbody);
