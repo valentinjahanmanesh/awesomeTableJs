@@ -34,7 +34,7 @@ its done , then put this before End tag for body , like this :
 <script>
 //initial table
 var aweTbl = new awesomeTableJs({
-// a json file or an websrvice that return JSON as its results
+// a json file or a websrvice that return JSON as its results
 // url : 'http://yourUrl/webserviceOrPageOrFileThatReturnJSON'
 url:'example.json',
 //how many records should display per table page
