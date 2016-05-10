@@ -7,7 +7,7 @@
         root.awesomeTableJs = factory(root.awesomeTableJs);
     }
 }(this, function() {
-    var VERSION = "0.1.4";
+    var VERSION = "0.1.7";
 
     //Acceppted data :
     //var array=[{"Total":"34","Version":"1.0.4","Office":"New York"},{"Total":"67","Version":"1.1.0","Office":"Paris"}];
@@ -135,8 +135,8 @@
             } else {
                 var currentPage = 1;
             };
-            if (sessionStorage.awesomeTabledata) {
-                var result = JSON.parse(sessionStorage.awesomeTabledata);
+            if (sessionStorage.awesomeTabledata || sessionStorage.awesomeTableFiltereddata) {
+                var result = JSON.parse(this.isFiltered?sessionStorage.awesomeTableFiltereddata:sessionStorage.awesomeTabledata);
                 var pageCount = result.length;
                 var skip = (currentPage - 1) * this.globalOptions.pageSize;
                 var paged = result.splice(skip, this.globalOptions.pageSize);
@@ -144,6 +144,7 @@
                 changeTableBody.call(this, paged);
 
             } else {
+
                 this.createTable();
             }
         }
@@ -177,7 +178,7 @@
       console.log(JSON.stringify('start saveing filtered array'));
           this.typingTimer = setTimeout(function(){
             sessionStorage.awesomeTableFiltereddata = JSON.stringify(filteredArray);
-          },2000);
+          },1000);
     }
     //Sorting
     AwesomeTableJs.prototype.sort = function(headerElement) {
