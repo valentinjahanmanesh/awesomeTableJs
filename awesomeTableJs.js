@@ -51,31 +51,31 @@
         };
         if (!this.tableWrapper) {
             var divWrapper = create(null, {
-                className: "aweTbl-table-wrapper"
+                class: "aweTbl-table-wrapper"
             });
             var table = create('table', {
-                className: "aweTbl-table",
+                class: "aweTbl-table",
             });
             this.tableElement = table;
             divWrapper.appendChild(table);
             document.body.appendChild(divWrapper);
         } else {
             var table = create('table', {
-                className: "aweTbl-table",
+                class: "aweTbl-table",
             });
             this.tableElement = table;
             this.tableWrapper.appendChild(table);
         }
         if (!this.paginationWrapper) {
             var divWrapper = create(null, {
-                className: "aweTbl-pagination-wrapper"
+                class: "aweTbl-pagination-wrapper"
             });
             this.paginationWrapper = divWrapper;
             document.body.appendChild(divWrapper);
         }
         if (!this.pageSizeWrapper) {
             var divWrapper = create(null, {
-                className: "aweTbl-pageCount-wrapper"
+                class: "aweTbl-pageCount-wrapper"
             });
             this.pageSizeWrapper = divWrapper;
             document.body.appendChild(divWrapper);
@@ -83,7 +83,7 @@
 
         if (!this.searchboxWrapper) {
             var divWrapper = create(null, {
-                className: "aweTbl-searchBox-wrapper"
+                class: "aweTbl-searchBox-wrapper"
             });
             this.searchboxWrapper = divWrapper;
             document.body.appendChild(divWrapper);
@@ -106,7 +106,7 @@
             console.log(self, " self");
             var loadingDiv = create(null, {
                 innerHTML: "   Loading Json file with 10000 ...  ",
-                className : "aweTbl-loading"
+                class : "aweTbl-loading"
             })
             document.createElement('div');
             this.tableWrapper.appendChild(loadingDiv);
@@ -421,12 +421,12 @@
 
     function makeSearchBox() {
         var divWrapper = create(null, {
-            className: "aweTbl-searchBox"
+            class: "aweTbl-searchBox"
         });
 
         var input = create('input', {
             type: "text",
-            className: "aweTbl-searchBox-input",
+            class: "aweTbl-searchBox-input",
             placeholder: "write + ENTER"
         });
 
@@ -525,7 +525,7 @@
                                         var img = create('img', {
                                             src: result[i][this.jsonKeys[j]],
                                             alt: result[i][this.jsonKeys[j]],
-                                            className: "aweTbl-img-".concat(this.jsonKeys[j])
+                                            class: "aweTbl-img-".concat(this.jsonKeys[j])
                                         });
                                         td.appendChild(img);
                                         break;
@@ -535,7 +535,7 @@
                                         var anchor = create('a', {
                                             href: result[i][this.jsonKeys[j]],
                                             target: "_blank",
-                                            className: "aweTbl-link-".concat(this.jsonKeys[
+                                            class: "aweTbl-link-".concat(this.jsonKeys[
                                                 j]),
                                             innerHTML : result[i][this.jsonKeys[j]]
 
@@ -563,7 +563,7 @@
                     var tr = document.createElement("tr");
                     for (j = 0; j < keyLen; j++) {
                         var td = create('td', {
-                            className: "aweTbl-text-".concat(this.jsonKeys[j]),
+                            class: "aweTbl-text-".concat(this.jsonKeys[j]),
                             innerHTML: result[i][this.jsonKeys[j]]
                         });
                         tr.appendChild(td);
@@ -634,7 +634,7 @@
                                         var img = create('img', {
                                             src: result[i][this.jsonKeys[j]],
                                             alt: result[i][this.jsonKeys[j]],
-                                            className: "aweTbl-img-".concat(this.jsonKeys[j])
+                                            class: "aweTbl-img-".concat(this.jsonKeys[j])
                                         });
                                         td.appendChild(img);
                                         break;
@@ -644,7 +644,7 @@
                                         var anchor = create('a', {
                                             href: result[i][this.jsonKeys[j]],
                                             target: "_blank",
-                                            className: "aweTbl-link-".concat(this.jsonKeys[
+                                            class: "aweTbl-link-".concat(this.jsonKeys[
                                                 j]),
                                             innerHTML: result[i][this.jsonKeys[j]]
                                         });
@@ -671,7 +671,7 @@
                     var tr = document.createElement("tr");
                     for (j = 0; j < keyLen; j++) {
                         var td = create('td', {
-                            className: "aweTbl-text-".concat(this.jsonKeys[j]),
+                            class: "aweTbl-text-".concat(this.jsonKeys[j]),
                             innerHTML: result[i][this.jsonKeys[j]]
                         });
                         tr.appendChild(td);
