@@ -8,7 +8,7 @@ create an awesome Table from raw JSON , which this Awesomeness has  sorting abil
   - create select box for changing table page size
   - a beautiful example that you can use
 
-  ![ScreenShot](https://raw.github.com/farshadjahanmanesh/awesomeTableJs/blob/master/WATCHME.png)
+  ![alt tag](http://awesometablejs.aorb.ir/awesometablejs/watchme.png)
 
 # Online Demo [Here]
 
