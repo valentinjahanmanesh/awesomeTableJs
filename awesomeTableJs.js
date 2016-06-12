@@ -91,7 +91,7 @@
         //set some variables to use for filtering
         //does user search for somthing in results?
         this.isFiltered=false;
-        //using a counter for saveing filteredData
+        //using a counter for saving filteredData
         this.typingCount=null;
         this.jsonKeys = [];
     }
@@ -175,7 +175,7 @@
         }
     }
     function saveFilteredData(filteredArray){
-      console.log(JSON.stringify('start saveing filtered array'));
+      console.log(JSON.stringify('start saving filtered array'));
           this.typingTimer = setTimeout(function(){
             sessionStorage.awesomeTableFiltereddata = JSON.stringify(filteredArray);
           },1000);
