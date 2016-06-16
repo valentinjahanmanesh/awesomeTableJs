@@ -1,0 +1,37 @@
+{
+  "name": "awesometablejsv2",
+  "version": "2.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/farshadjahanmanesh/awesomeTableJs.git"
+  },
+  "keywords": [
+    "json",
+    "table",
+    "table",
+    "maker",
+    "json",
+    "to",
+    "table"
+  ],
+  "author": "farshad jahanmanesh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/farshadjahanmanesh/awesomeTableJs/issues"
+  },
+  "homepage": "https://github.com/farshadjahanmanesh/awesomeTableJs#readme",
+    "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-jshint": "latest",
+    "jshint-stylish": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-watch": "latest"
+  }
+}
