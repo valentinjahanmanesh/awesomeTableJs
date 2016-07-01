@@ -314,6 +314,11 @@
         }
         DispatchEvents.call(this, '');
     };
+    AwesomeTableJs.prototype.reloadData = function (data) {
+        this.globalOptions.data = data;
+        sessionStorage.awesomeTabledata = JSON.stringify(data);
+        changeTableBody.call(this, data);
+    }
 
     //Change Page Size
     AwesomeTableJs.prototype.changePageSize = function (pageSize) {
